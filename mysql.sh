@@ -49,7 +49,7 @@ VALIDATE $? "Starting MySQL"
 
 if [ $? -ne 0 ]
 then
-    echo "MYSQL Root password is not setup"
+    echo "MYSQL Root password is not setup" &>>$LOG_FILE_NAME
     mysql_secure_installation --set-root-pass ExpenseApp@1
     VALIDATE $? "Setting Root Passwod"
 else
