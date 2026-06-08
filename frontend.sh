@@ -41,26 +41,26 @@ CHECKROOT
 
 
 
-dnf install nginx -y 
+dnf install nginx -y  &>>$LOG_FILE_NAME
 VALIDATE $? "Intall Nginx"
 
-systemctl enable nginx
+systemctl enable nginx  &>>$LOG_FILE_NAME
 VALIDATE $? "Enable"
 
-systemctl start nginx
+systemctl start nginx  &>>$LOG_FILE_NAME
 VALIDATE $? "Start"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/*  &>>$LOG_FILE_NAME
 VALIDATE $? "Remove"
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip  &>>$LOG_FILE_NAME
 VALIDATE $? "Download"
 
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html  &>>$LOG_FILE_NAME
 VALIDATE $? "Change Directory"
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip  &>>$LOG_FILE_NAME
 VALIDATE $? "Unzip File"
 
-systemctl restart nginx
+systemctl restart nginx  &>>$LOG_FILE_NAME 
 VALIDATE $? "Restart"
