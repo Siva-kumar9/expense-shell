@@ -1,0 +1,64 @@
+#!/bin/bash
+
+USRID=$(id -u)
+
+CHECKROOT()
+{
+    if [ $USRID -ne 0 ]
+    then
+    echo -e " $R Not a Root User"
+    exit 1
+    fi
+}
+
+LOG_FOLDER="/var/log/expense-logs"
+LOG_FILE=$(echo $0 | cut -d "." -f1)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE_NAME="$LOG_FOLDER/$LOG_FILE-$TIMESTAMP.log"
+
+
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+
+
+VALIDATE(){
+    if [ $1 -ne 0 ]
+    then
+        echo -e "$2 iS $R Fail $N"
+        exit 1
+    else
+        echo -e "$2 is $G Success $N"
+    fi
+}
+
+echo "Time of Execution is : $TIMESTAMP "  &>>$LOG_FILE_NAME
+
+CHECKROOT
+
+
+
+dnf install nginx -y 
+VALIDATE $? "Intall Nginx"
+
+systemctl enable nginx
+VALIDATE $? "Enable"
+
+systemctl start nginx
+VALIDATE $? "Start"
+
+rm -rf /usr/share/nginx/html/*
+VALIDATE $? "Remove"
+
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+VALIDATE $? "Download"
+
+cd /usr/share/nginx/html
+VALIDATE $? "Change Directory"
+
+unzip /tmp/frontend.zip
+VALIDATE $? "Unzip File"
+
+systemctl restart nginx
+VALIDATE $? "Restart"
