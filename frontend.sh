@@ -35,6 +35,8 @@ VALIDATE(){
 
 echo "Time of Execution is : $TIMESTAMP "  &>>$LOG_FILE_NAME
 
+mkdir -p $LOG_FOLDER
+
 CHECKROOT
 
 
