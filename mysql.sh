@@ -46,7 +46,8 @@ VALIDATE $? "Enabling MySQL"
 systemctl start mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "Starting MySQL"
 
-mysql -h 172.31.34.8 -u root -pExpenseApp@1 -e 'show databases'; &>>$LOG_FILE_NAME
+mysql -h 172.31.34.8 -u root -pExpenseApp@1 -e 'show databases';  &>>$LOG_FILE_NAME
+
 
 if [ $? -ne 0 ]
 then
