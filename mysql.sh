@@ -26,10 +26,10 @@ N="\e[0m"
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 IS $R Fail $N"
+        echo -e "$2 iS $R Fail $N"
         exit 1
     else
-        echo -e "$2 Is $G Success $N"
+        echo -e "$2 is $G Success $N"
     fi
 }
 
