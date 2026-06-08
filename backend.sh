@@ -66,7 +66,7 @@ cd /app
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing Dependencies"
 
-cp backend.service /etc/systemd/system/backend.service  &>>$LOG_FILE_NAME
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service  &>>$LOG_FILE_NAME
 
 
 #Prepare SQL
